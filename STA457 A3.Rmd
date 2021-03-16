@@ -2,7 +2,9 @@
 title: "STA457 A3"
 author: "Yujia Zheng"
 date: "2021/3/16"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
