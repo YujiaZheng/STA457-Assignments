@@ -1,2 +1,2 @@
-# STA457A3
-# This is STA457 Assignment 3
+# STA457-Assignments
+# This is a repo for STA457 Assignments :)
