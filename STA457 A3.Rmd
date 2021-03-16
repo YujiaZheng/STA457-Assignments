@@ -1,0 +1,39 @@
+---
+title: "STA457 A3"
+author: "Yujia Zheng"
+date: "2021/3/16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question 1
+## (a)
+```{r}
+z1 <- c(1, -1.2, 0.85)
+polyroot(z1) # find the roots 
+```
+
+\newpage
+
+```{r}
+# calculate the ACF
+h <- 0:10
+acf_1 <- -1.0024*((1.0847)^(-h))*cos(0.8622*h+pi-atan(0.0695))
+acf_1
+# verify the ACF values using the ARMAacf function
+ARMAacf(ar=c(1.2, -0.85), ma=0, 10) # AR(2) with phi1 = 1.2, phi2 = -0.85
+```
+
+By using the ARMAacf function to verify the ACF values, we can see that the values I calculated are very close to the output of ARMAacf.
+
+## (b)
+```{r}
+z2 <- c(1, -1, 0.25)
+polyroot(z2) # find the roots 
+```
+
+By using the ARMAacf function to verify the ACF values, we can see that the values I calculated are very close to the output of ARMAacf.
+
