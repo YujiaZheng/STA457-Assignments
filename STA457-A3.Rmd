@@ -101,47 +101,67 @@ acfpacf[[3]]
 sim_result
 ```
 
-### Plot the estimates of phi for 3 simulations with the true value on the same axis:
-
-```{r}
-# plot the estimates of phi for 3 simulations with the true value
-plot(c(sim_result$true_phi[1], sim_result$est_phi[1],
-       sim_result$est_phi[2], sim_result$est_phi[3]), type = "p",
-     col = c("red", "blue", "blue", "blue"), ylim = c(0, 1),
-     ylab = "Estimated value of phi",
-     xlab = "From left to right: true phi, estimated phi for simulation 1, 2, 3",
-     main = "True Value vs. Phi Estimates for 3 Simulations")
-legend(x = "bottomright", legend = c("true value", "phi estimates"),
-       col = c("red", "blue"), lty = c(1,1))
+### Plot the true values vs. parameter estimates for Simulation 1 on the same axis:
+```{r, fig.height=4}
+# plot the true values vs. parameter estimates for Simulation 1
+Sim1 <- data.frame(Parameters = c("phi","theta","sigma","phi","theta","sigma"),
+                   Values = c(0.9, -0.9, 1, sim_result$est_phi[1],
+                              sim_result$est_theta[1], sim_result$est_sd[1]),
+                   Type = c("true", "true", "true", "estimated", "estimated", 
+                            "estimated"))
+Sim1 %>%
+  # make the parameters in order: phi, theta, sigma
+  mutate(Parameters = fct_relevel(Parameters, "sigma", after = Inf)) %>%
+  ggplot(aes(x = Parameters, y = Values, colour = Type)) +
+  geom_point() +
+  # add a title
+  labs(title = "True Values vs. Parameter Estimates for Simulation 1") + 
+  theme_minimal()
 ```
 
-\newpage
-### Plot the estimates of theta for 3 simulations with the true value on the same axis:
-```{r}
-# plot the estimates of theta for 3 simulations with the true value
-plot(c(sim_result$true_theta[1], sim_result$est_theta[1],
-       sim_result$est_theta[2], sim_result$est_theta[3]), type = "p",
-     col = c("red", "blue", "blue", "blue"), ylim = c(-1, 0.1),
-     ylab = "Estimated value of theta",
-     xlab = "From left to right: true theta, estimated theta for simulation 1, 2, 3",
-     main = "True Value vs. Theta Estimates for 3 Simulations")
-legend(x = "topright", legend = c("true value", "phi estimates"),
-       col = c("red", "blue"), lty = c(1,1))
-```
+For Simulation 1, the estimated values of $\phi$ and $\theta$ are quite different from the true values, while the estimated $\sigma$ is close to the true $\sigma$.
 
 \newpage
-### Plot the estimates of sigma for 3 simulations with the true value on the same axis:
+### Plot the true values vs. parameter estimates for Simulation 2 on the same axis:
 ```{r}
-# plot the estimates of sigma for 3 simulations with the true value
-plot(c(sim_result$true_sd[1], sim_result$est_sd[1],
-       sim_result$est_sd[2], sim_result$est_sd[3]), type = "p",
-     col = c("red", "blue", "blue", "blue"), ylim = c(0.85, 1.1),
-     ylab = "Estimated value of sigma",
-     xlab = "From left to right: true sigma, estimated sigma for simulation 1, 2, 3",
-     main = "True Value vs. Sigma Estimates for 3 Simulations")
-legend(x = "topleft", legend = c("true value", "phi estimates"),
-       col = c("red", "blue"), lty = c(1,1))
+# plot the true values vs. parameter estimates for Simulation 2
+Sim2 <- data.frame(Parameters = c("phi","theta","sigma","phi","theta","sigma"),
+                   Values = c(0.9, -0.9, 1, sim_result$est_phi[2],
+                              sim_result$est_theta[2], sim_result$est_sd[2]),
+                   Type = c("true", "true", "true", "estimated", "estimated", 
+                            "estimated"))
+Sim2 %>%
+  # make the parameters in order: phi, theta, sigma
+  mutate(Parameters = fct_relevel(Parameters, "sigma", after = Inf)) %>%
+  ggplot(aes(x = Parameters, y = Values, colour = Type)) +
+  geom_point() +
+  # add a title
+  labs(title = "True Values vs. Parameter Estimates for Simulation 2") + 
+  theme_minimal()
 ```
+
+For Simulation 2, the estimated values of $\phi$ and $\theta$ are still somewhat different from the true values, while the estimated $\sigma$ is close to the true $\sigma$.
+
+\newpage
+### Plot the true values vs. parameter estimates for Simulation 3 on the same axis:
+```{r}
+# plot the true values vs. parameter estimates for Simulation 3
+Sim3 <- data.frame(Parameters = c("phi","theta","sigma","phi","theta","sigma"),
+                   Values = c(0.9, -0.9, 1, sim_result$est_phi[3],
+                              sim_result$est_theta[3], sim_result$est_sd[3]),
+                   Type = c("true", "true", "true", "estimated", "estimated", 
+                            "estimated"))
+Sim3 %>%
+  # make the parameters in order: phi, theta, sigma
+  mutate(Parameters = fct_relevel(Parameters, "sigma", after = Inf)) %>%
+  ggplot(aes(x = Parameters, y = Values, colour = Type)) +
+  geom_point() +
+  # add a title
+  labs(title = "True Values vs. Parameter Estimates for Simulation 3") + 
+  theme_minimal()
+```
+
+For Simulation 3, the estimated values of $\phi$, $\theta$, and $\sigma$ are all close to the true values.
 
 \newpage
 # Question 3
