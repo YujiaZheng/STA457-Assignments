@@ -142,3 +142,58 @@ plot(c(sim_result$true_sd[1], sim_result$est_sd[1],
 legend(x = "topleft", legend = c("true value", "phi estimates"),
        col = c("red", "blue"), lty = c(1,1))
 ```
+
+\newpage
+# Question 3
+## (a)
+
+```{r}
+library(astsa)
+# fit an AR(2) model to the data
+cmort_fit <- ar.ols(cmort, order = 2, demean = FALSE, intercept = TRUE)
+cmort_fit
+cmort_fit$asy.se.coef # standard errors of the estimates
+```
+
+**According to the output, the fitted regression model is:** $x_t=11.45+0.4286x_{t-1}+0.4418x_{t-2}$
+
+**Test the significance of the parameter estimates:**
+
+```{r}
+cmort_1 <- as.numeric(cmort)
+cmort_fit1 <- lm(cmort_1 ~ lag(cmort_1, 1) + lag(cmort_1, 2)) # the model has order of 2
+summary(cmort_fit1)
+```
+
+**Test the significance of the parameter estimates:**
+
+Using this method to fit the AR(2) model will give us the same parameter estimates as the ar.ols method, and in addition, it gives the p-value of each estimated coefficient. According to the output, the p-value of the estimated intercept and the p-values of coefficients of the time series at lag 1 and 2 are all less than the significance level of 0.05, which means the parameter estimates are all significant. Moreover, the p-value of the overall model is < 2.2e-16, which indicates that the entire model is significant as well.
+
+## (b)
+```{r}
+z_0.975 <- qnorm(0.975)
+# find the forecasts over a four-week horizon, m = 1, 2, 3, 4
+fore <- predict(cmort_fit, n.ahead = 4)
+# construct 95% prediction intervals and show the results in a table
+pre_int <- data.frame("m" = 1:4,
+                      "forecast" = fore$pred,
+                      "lower bound" = fore$pred - z_0.975*fore$se, 
+                      "upper bound" = fore$pred + z_0.975*fore$se)
+pre_int
+```
+
+The forecasts over a four-week horizon and their corresponding 95% prediction intervals are shown in the table above. 
+
+```{r}
+# plot the forecast and corresponding 95% PI
+ts.plot(fore$pred, col = 1, ylim = c(70, 102), ylab = "forecast",
+main = "The forecast over a four-week horizon with 95% PI")
+# the upper bound and the lower bound
+U = fore$pred + z_0.975*fore$se; L = fore$pred - z_0.975*fore$se
+xx = c(time(U), rev(time(U))); yy = c(L, rev(U))
+# add the gray band which represents the 95% PI
+polygon(xx, yy, border = 8, col = gray(0.6, alpha = 0.2))
+lines(fore$pred, type = "p", col = 2)
+```
+
+This is the plot of the forecast over a four-week horizon, the red points represent the forecast values, and the gray band represents the 95% prediction intervals.
