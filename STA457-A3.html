@@ -263,7 +263,7 @@ for (i in 1:3){ # repeat the numeric exercise 3 times
 <div id="b-what-happened-and-how-to-explain-the-results" class="section level2">
 <h2>(b) What happened and how to explain the results?</h2>
 <p>The plots of the simulated data look different each time, and their ACF and PACF are also different for each simulation. According to the plots of ACF and PACF, the patterns are somewhat random with positive and negative values, but the values are quite small, with most of the values within the dashed lines (values are slightly larger at some lag, for example, lag = 20 for Sim 2, lag = 10 for Sim 3).</p>
-<p>The table called “sim_result” (shown in part (a)) shows the true parameter values and the parameter estimates for each simulation. We can see that the parameter estimates are different each time. The ARMA11 dataset is simulated with randomness each time, and also the sample size is moderate (maybe not large enough), therefore leads to the difference in parameter estimates in each simulation and the difference with the true parameter.</p>
+<p>The table called “sim_result” (shown in part (a)) shows the true parameter values and the estimates for each simulation. We see that the parameter estimates are different each time. The ARMA11 dataset is simulated with randomness each time, and also the sample size is moderate (maybe not large enough), therefore leads to the difference in parameter estimates in each simulation and the difference with the true parameter.</p>
 <p>Here are the first 10 values of ACF and PACF for each simulation:</p>
 <pre class="r"><code># Show the first 10 values of ACF and PACF for simulation 1
 acfpacf[[1]]</code></pre>
